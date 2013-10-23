@@ -174,10 +174,11 @@ public class Replica {
 	 */
 	public boolean hasRec(int k, Event e){
 		// These are minus one, as indexes are 0-based
-		int ttEntry = m_timeTable[k-1][e.getReplicaId()-1];
+		int eventReplicaId = e.getReplicaId();
+		int ttEntry = m_timeTable[k-1][eventReplicaId-1];
 		int eventTime = e.getEventTime();
 		
-		boolean hasRec = (ttEntry >= eventTime); 
+		boolean hasRec = (ttEntry >= eventTime);
 		return hasRec;
 	}
 	
@@ -223,6 +224,11 @@ public class Replica {
 		// Add the received logs to our local log
 		ArrayList<Event> receivedLog = trans.getLog();
 		for (Event e : receivedLog){
+			// If the event is already in our local log, don't add it
+			if (m_localLog.contains(e)){
+				continue;
+			}
+			
 			// Adds the event to the local log, and executes it
 			m_localLog.add(e);
 			executeEvent(e);

@@ -124,6 +124,7 @@ public class ReplicatedLog {
 			// If the replica exists, receive the transmission
 			if (destRep != null){
 				destRep.receiveTrans(trans);
+				m_transmissions.remove(transNumber);
 			}
 		}
 		else{
