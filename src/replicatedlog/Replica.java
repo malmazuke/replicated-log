@@ -225,7 +225,7 @@ public class Replica {
 		ArrayList<Event> receivedLog = trans.getLog();
 		for (Event e : receivedLog){
 			// If the event is already in our local log, don't add it
-			if (m_localLog.contains(e)){
+			if (hasRec(trans.getSourceId(), e)){
 				continue;
 			}
 			
