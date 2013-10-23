@@ -135,11 +135,15 @@ public class ReplicatedLog {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		System.out.println("---  Replicated Log  ---\n---  By Mark Feaver  ---\n- Type 'help' for info -");
 		ReplicatedLog repLog = new ReplicatedLog();
 		
 		Scanner in = new Scanner(System.in);
 		String line;
+		System.out.print("> ");
+		
 		while (!(line = in.nextLine()).equals("")){
+			
 			line = line.replaceAll("\\s","");
 			line = line.replaceAll("\"","");
 			line = line.replaceAll("Ò", "");
@@ -203,13 +207,19 @@ public class ReplicatedLog {
 						"Increment(replicaId, key) -- Increments the value stored at 'key' (string) in Replica 'replicaId' (int)\n" +
 						"Decrement(replicaId, key) -- Decrements the value stored at 'key' (string) in Replica 'replicaId' (int)\n" +
 						"GetValue(replicaId, key) -- Prints the value stored at 'key' (string) in Replica 'replicaId' (int)\n" +
-						"PrintState(replicaId) -- Prints the current state of the Replica 'replicaId'" +
-						"SendLog(srcReplicaId, destReplicaId) -- Sends the local log of 'srcReplicaId' to 'destReplicaId'. Prints the Transmission ID for the transmission, which is used in 'ReceiveLog(transmissionId)'" +
-						"ReceiveLog(transmissionId) -- Receives the transmission with 'transmissionId'");
+						"PrintState(replicaId) -- Prints the current state of the Replica 'replicaId'\n" +
+						"SendLog(srcReplicaId, destReplicaId) -- Sends the local log of 'srcReplicaId' to 'destReplicaId'. Prints the Transmission ID for the transmission, which is used in 'ReceiveLog(transmissionId)'\n" +
+						"ReceiveLog(transmissionId) -- Receives the transmission with 'transmissionId'\n" +
+						"Exit -- Exits the program");
+			}
+			else if (methodName.equals("exit")){
+				return;
 			}
 			else{
 				System.err.println("Error: unknown command.");
 			}
+			
+			System.out.print("> ");
 		}
 		
 //		Increment(1, ÒXÓ)
